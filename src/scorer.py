@@ -1,0 +1,154 @@
+import json
+from openai import OpenAI
+
+SCORE_PROMPT = """你是一个 AI 信息策展人。请分析以下文章，判断它是否值得推送给一个关注 AI 趋势和一人公司创业的读者。
+
+文章标题：{title}
+文章内容：{content}
+
+请按以下 JSON 格式输出：
+{{
+  "topic": "主题分类（从以下选一个）：AI新技术/新模型 | OPC/AI赚钱案例 | AI工具实操/Prompt技巧 | AI Agent/自动化工作流 | 本地AI/开源模型 | AI对行业的冲击 | AI投融资动态 | 无关",
+  "score": 评分(0-10，整数),
+  "tags": ["标签1", "标签2"],
+  "keep": true或false
+}}
+
+评分标准（信息密度 × 可操作性）：
+有具体事实（数字/产品名/技术名）才有信息密度；读完之后能做某件事或做更好的判断，才有可操作性。
+泛泛观点、营销软文、无数据的预测，直接 ≤4 分。
+
+按主题的高分门槛：
+
+▸ AI 新技术 / 新模型（得 8+ 分须满足）：
+  - 有具体 benchmark 数据或与现有模型的对比
+  - 有 API 可用性、定价或开源状态
+  - 有实际能力演示或用户反馈
+  缺以上任意两项 → 降 2 分
+
+▸ OPC / AI 赚钱案例（得 8+ 分须满足）：
+  - 有具体收入数字（月收入/年收入/ARR）
+  - 有产品/服务形态描述
+  - 有获客方式或冷启动路径
+  缺收入数字 → 最高 6 分；缺其余任意一项 → 降 1 分
+
+▸ AI 工具实操 / Prompt 技巧（得 8+ 分须满足）：
+  - 有可直接复用的 prompt 或操作步骤
+  - 有使用前后的效果对比
+  只讲工具功能介绍，没有实操内容 → 最高 5 分
+
+▸ AI Agent / 自动化工作流（得 8+ 分须满足）：
+  - 有具体的工具组合或架构描述
+  - 有实际运行效果或节省时间/成本的数据
+  只有概念介绍，无落地案例 → 最高 5 分
+
+▸ 本地 AI / 开源模型（得 8+ 分须满足）：
+  - 有性能或成本与云端方案的对比
+  - 有部署难度或硬件需求说明
+  缺对比数据 → 降 2 分
+
+▸ AI 对行业的冲击（得 8+ 分须满足）：
+  - 有具体行业 + 具体影响数据（就业/效率/市场规模）
+  - 有机会或风险的可操作结论
+  纯观点预测无数据 → 最高 5 分
+
+▸ AI 投融资动态（得 8+ 分须满足）：
+  - 有融资金额 + 投资方 + 业务方向
+  - 有估值或与上轮对比
+  缺金额 → 最高 6 分
+
+通用扣分项：
+- 明显是 PR 稿 / 官方宣传：直接 ≤3 分
+- 无原创内容，纯转载/聚合：-2 分
+- 内容超过 14 天：-1 分
+- 标题党，正文与标题严重不符：-3 分
+
+keep 规则：score >= 7 且 topic != 无关 时为 true。
+只输出 JSON，不要其他文字。"""
+
+SUMMARY_PROMPT = """请为以下文章生成一段中文摘要，2-3 句话。
+
+要求：
+- 包含文章中最关键的具体事实（数字、产品名、技术名）
+- 如果是 OPC/赚钱案例，必须包含：收入规模、实现方式、获客路径
+- 如果是技术/模型，必须包含：核心能力提升、与现有方案的对比
+- 如果是工具实操，必须包含：具体操作步骤或可复用的 prompt
+- 不写"本文介绍了……"这类套话，直接陈述事实
+
+文章标题：{title}
+文章内容：{content}
+
+只输出摘要文本，不要其他内容。"""
+
+
+SCORING_MODEL = "anthropic/claude-haiku-4-5"    # fast + cheap for bulk scoring
+SUMMARY_MODEL = "anthropic/claude-sonnet-4-5"  # better quality for final output
+
+
+def score_article(article: dict, client: OpenAI) -> dict:
+    """Score and classify an article. Returns article enriched with topic/score/tags/keep."""
+    prompt = SCORE_PROMPT.format(
+        title=article["title"],
+        content=article["content"],
+    )
+    try:
+        response = client.chat.completions.create(
+            model=SCORING_MODEL,
+            max_tokens=256,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        raw = response.choices[0].message.content.strip()
+        # Strip markdown code fences if present
+        if raw.startswith("```"):
+            raw = raw.split("```")[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
+        result = json.loads(raw)
+        article.update({
+            "topic": result.get("topic", "无关"),
+            "score": int(result.get("score", 0)),
+            "tags": result.get("tags", []),
+            "keep": bool(result.get("keep", False)),
+        })
+    except Exception as e:
+        print(f"  [WARN] Scoring failed for '{article['title']}': {e}")
+        article.update({"topic": "无关", "score": 0, "tags": [], "keep": False})
+    return article
+
+
+def summarize_article(article: dict, client: OpenAI) -> str:
+    """Generate a 2-3 sentence Chinese summary for an article."""
+    prompt = SUMMARY_PROMPT.format(
+        title=article["title"],
+        content=article["content"],
+    )
+    try:
+        response = client.chat.completions.create(
+            model=SUMMARY_MODEL,
+            max_tokens=300,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        print(f"  [WARN] Summary failed for '{article['title']}': {e}")
+        return ""
+
+
+def process_articles(articles: list[dict], api_key: str) -> list[dict]:
+    """Score all articles, then summarize the ones worth keeping."""
+    client = OpenAI(
+        api_key=api_key,
+        base_url="https://openrouter.ai/api/v1",
+    )
+
+    print(f"\n[1/2] Scoring {len(articles)} articles...")
+    scored = [score_article(a, client) for a in articles]
+
+    kept = [a for a in scored if a["keep"]]
+    print(f"  Kept {len(kept)} / {len(scored)} articles (score ≥ 7)")
+
+    print(f"\n[2/2] Summarizing {len(kept)} articles...")
+    for article in kept:
+        article["summary"] = summarize_article(article, client)
+
+    return kept

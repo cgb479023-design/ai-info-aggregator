@@ -1,0 +1,87 @@
+# RSS 订阅列表
+# 每个 feed 需要：url、name（来源显示名）、lang（en/zh）
+
+[[feeds]]
+name = "Indie Hackers"
+url = "https://www.indiehackers.com/feed.xml"
+lang = "en"
+
+[[feeds]]
+name = "Hacker News Show HN"
+url = "https://hnrss.org/show"
+lang = "en"
+
+[[feeds]]
+name = "Ben's Bites"
+url = "https://bensbites.beehiiv.com/feed"
+lang = "en"
+
+[[feeds]]
+name = "TLDR AI"
+url = "https://tldr.tech/ai/rss"
+lang = "en"
+
+[[feeds]]
+name = "The Batch (deeplearning.ai)"
+url = "https://www.deeplearning.ai/the-batch/feed/"
+lang = "en"
+
+[[feeds]]
+name = "Simon Willison's Blog"
+url = "https://simonwillison.net/atom/everything/"
+lang = "en"
+
+[[feeds]]
+name = "Hugging Face Blog"
+url = "https://huggingface.co/blog/feed.xml"
+lang = "en"
+
+[[feeds]]
+name = "Starter Story"
+url = "https://starterstory.com/feed"
+lang = "en"
+
+[[feeds]]
+name = "Product Hunt"
+url = "https://www.producthunt.com/feed"
+lang = "en"
+
+[[feeds]]
+name = "Reddit r/LocalLLaMA"
+url = "https://www.reddit.com/r/LocalLLaMA/.rss"
+lang = "en"
+
+[[feeds]]
+name = "Reddit r/SideProject"
+url = "https://www.reddit.com/r/SideProject/.rss"
+lang = "en"
+
+[[feeds]]
+name = "GitHub Trending"
+url = "https://mshibanami.github.io/GitHubTrendingRSS/daily/all.xml"
+lang = "en"
+
+[[feeds]]
+name = "量子位"
+url = "https://www.qbitai.com/feed"
+lang = "zh"
+
+[[feeds]]
+name = "机器之心"
+url = "https://www.jiqizhixin.com/rss"
+lang = "zh"
+
+[[feeds]]
+name = "36氪"
+url = "https://36kr.com/feed"
+lang = "zh"
+
+[[feeds]]
+name = "虎嗅"
+url = "https://www.huxiu.com/rss/0.xml"
+lang = "zh"
+
+[[feeds]]
+name = "少数派"
+url = "https://sspai.com/feed"
+lang = "zh"
