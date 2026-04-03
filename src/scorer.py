@@ -136,8 +136,57 @@ def summarize_article(article: dict, client: OpenAI) -> str:
         return ""
 
 
+DEDUP_PROMPT = """以下是一批通过质量筛选的文章列表，格式为 [序号] 标题 (来源)。
+
+请找出其中报道同一件事/同一产品/同一发布的文章组。
+同一件事的判断标准：核心主题相同（如都在报道 Gemma 4 发布、都在报道某工具上线）。
+
+对于每个重复组，只保留序号最小的那篇（通常是评分最高的，因为列表已按评分降序排列）。
+
+{articles}
+
+请输出需要删除的文章序号列表（JSON 数组），如果没有重复则返回空数组。
+只输出 JSON，例如：[2, 5, 8]"""
+
+
+def dedup_articles(articles: list[dict], client: OpenAI) -> tuple[list[dict], list[dict]]:
+    """Remove duplicate articles covering the same event. Returns (deduped, dupes)."""
+    if len(articles) <= 1:
+        return articles, []
+
+    # Sort by score descending so we always keep the highest-scoring version
+    sorted_articles = sorted(articles, key=lambda x: x["score"], reverse=True)
+
+    lines = "\n".join(
+        f"[{i}] {a['title']} (来源: {a['source']}, 评分: {a['score']})"
+        for i, a in enumerate(sorted_articles)
+    )
+    prompt = DEDUP_PROMPT.format(articles=lines)
+
+    try:
+        response = client.chat.completions.create(
+            model=SCORING_MODEL,
+            max_tokens=256,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        raw = response.choices[0].message.content.strip()
+        if raw.startswith("```"):
+            raw = raw.split("```")[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
+        to_remove = set(json.loads(raw))
+    except Exception as e:
+        print(f"  [WARN] Dedup failed: {e}, skipping dedup")
+        return articles, []
+
+    deduped = [a for i, a in enumerate(sorted_articles) if i not in to_remove]
+    dupes = [a for i, a in enumerate(sorted_articles) if i in to_remove]
+    print(f"  Dedup: removed {len(dupes)} duplicate(s)")
+    return deduped, dupes
+
+
 def process_articles(articles: list[dict], api_key: str) -> tuple[list[dict], list[dict]]:
-    """Score all articles, then summarize the ones worth keeping.
+    """Score all articles, dedup, then summarize the ones worth keeping.
     Returns (kept, rejected) tuple.
     """
     client = OpenAI(
@@ -145,14 +194,18 @@ def process_articles(articles: list[dict], api_key: str) -> tuple[list[dict], li
         base_url="https://openrouter.ai/api/v1",
     )
 
-    print(f"\n[1/2] Scoring {len(articles)} articles...")
+    print(f"\n[1/3] Scoring {len(articles)} articles...")
     scored = [score_article(a, client) for a in articles]
 
     kept = [a for a in scored if a["keep"]]
     rejected = [a for a in scored if not a["keep"]]
     print(f"  Kept {len(kept)} / {len(scored)} articles (score ≥ 7)")
 
-    print(f"\n[2/2] Summarizing {len(kept)} articles...")
+    print(f"\n[2/3] Deduplicating {len(kept)} articles...")
+    kept, dupes = dedup_articles(kept, client)
+    rejected.extend(dupes)
+
+    print(f"\n[3/3] Summarizing {len(kept)} articles...")
     for article in kept:
         article["summary"] = summarize_article(article, client)
 
