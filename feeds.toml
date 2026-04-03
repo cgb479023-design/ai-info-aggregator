@@ -18,6 +18,11 @@ name = "Reddit r/SideProject"
 url = "https://www.reddit.com/r/SideProject/.rss"
 lang = "en"
 
+[[feeds]]
+name = "Reddit r/Entrepreneur"
+url = "https://www.reddit.com/r/Entrepreneur/.rss"
+lang = "en"
+
 # ── AI Newsletter ─────────────────────────────────────────────
 [[feeds]]
 name = "Ben's Bites"
@@ -121,6 +126,11 @@ lang = "en"
 [[feeds]]
 name = "eCommerceFuel"
 url = "https://www.ecommercefuel.com/feed/"
+lang = "en"
+
+[[feeds]]
+name = "eCommerceBytes"
+url = "https://www.ecommercebytes.com/feed/"
 lang = "en"
 
 # ── 中文 AI 媒体 ──────────────────────────────────────────────
