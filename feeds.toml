@@ -7,10 +7,11 @@ name = "Indie Hackers"
 url = "https://www.indiehackers.com/feed.xml"
 lang = "en"
 
-[[feeds]]
-name = "Starter Story"
-url = "https://www.starterstory.com/rss.xml"
-lang = "en"
+# Starter Story：无公开 RSS，内容在付费墙后，暂无方案
+# [[feeds]]
+# name = "Starter Story"
+# url = ""
+# lang = "en"
 
 [[feeds]]
 name = "Reddit r/SideProject"
@@ -30,7 +31,7 @@ lang = "en"
 
 [[feeds]]
 name = "The Batch (deeplearning.ai)"
-url = "https://deeplearning.ai/the-batch/feed/"
+url = "https://rsshub.app/deeplearning/the-batch"
 lang = "en"
 
 [[feeds]]
@@ -150,7 +151,12 @@ lang = "zh"
 
 [[feeds]]
 name = "极客公园"
-url = "https://www.geekpark.net/rss"
+url = "https://plink.anyfeeder.com/geekpark"
+lang = "zh"
+
+[[feeds]]
+name = "晚点 LatePost"
+url = "https://rsshub.app/latepost"
 lang = "zh"
 
 # 虎嗅：反爬超时，暂停，待后续寻找替代方案
