@@ -1,0 +1,18 @@
+# Environment variables (API keys)
+.env
+
+# Generated output files (keep .gitkeep)
+output/*.md
+
+# Personal articles
+articles/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# macOS
+.DS_Store
