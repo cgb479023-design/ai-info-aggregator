@@ -30,6 +30,21 @@ url = "https://bensbites.com/feed"
 lang = "en"
 
 [[feeds]]
+name = "The Rundown AI"
+url = "https://rss.beehiiv.com/feeds/2R3C6Bt5wj.xml"
+lang = "en"
+
+[[feeds]]
+name = "One Useful Thing"
+url = "https://www.oneusefulthing.org/feed"
+lang = "en"
+
+[[feeds]]
+name = "Zara's Newsletter"
+url = "https://zarazhang.substack.com/feed"
+lang = "en"
+
+[[feeds]]
 name = "TLDR AI"
 url = "https://tldr.tech/rss/ai"
 lang = "en"

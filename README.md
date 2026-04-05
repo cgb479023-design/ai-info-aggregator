@@ -89,14 +89,14 @@
 
 ---
 
-## 信息源（40个）
+## 信息源（43个）
 
 覆盖中英文，按方向分类：
 
 | 方向 | 来源 |
 |------|------|
 | OPC/创业案例 | Indie Hackers · Reddit r/SideProject · Reddit r/Entrepreneur |
-| AI Newsletter | Ben's Bites · TLDR AI · The Batch · Latent Space · Lenny's Newsletter |
+| AI Newsletter | Ben's Bites · The Rundown AI · One Useful Thing · Zara's Newsletter · TLDR AI · The Batch · Latent Space · Lenny's Newsletter |
 | AI 技术 | Simon Willison · Hugging Face Blog · Hacker News Show HN · Reddit r/LocalLLaMA · GitHub Trending |
 | 科技媒体（英文） | VentureBeat AI · TechCrunch AI · MIT Technology Review |
 | 商业趋势 | Trends.vc · Product Hunt |
