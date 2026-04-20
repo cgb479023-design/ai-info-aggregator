@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from src.history import filter_unseen, load_history, record_pushed
+from src.history import filter_unseen, load_history, prune_history, record_pushed
 
 
 def test_load_history_returns_empty_list_when_file_missing(tmp_path):
@@ -109,3 +109,31 @@ def test_record_pushed_does_not_mutate_input_history():
     original = list(history)
     record_pushed(history, [{"url": "https://new.com", "title": "N", "score": 8}], "2026-04-21")
     assert history == original
+
+
+def test_prune_history_drops_expired_entries():
+    history = [
+        {"url": "https://old.com", "pushed_at": "2025-01-01", "title": "Old", "score": 7},
+        {"url": "https://new.com", "pushed_at": "2026-04-10", "title": "New", "score": 8},
+    ]
+    pruned = prune_history(history, days=90, today="2026-04-21")
+    assert len(pruned) == 1
+    assert pruned[0]["url"] == "https://new.com"
+
+
+def test_prune_history_keeps_exact_boundary():
+    history = [
+        {"url": "https://edge.com", "pushed_at": "2026-01-21", "title": "Edge", "score": 8}
+    ]
+    pruned = prune_history(history, days=90, today="2026-04-21")
+    assert len(pruned) == 1
+
+
+def test_prune_history_drops_entries_with_malformed_date():
+    history = [
+        {"url": "https://bad.com", "pushed_at": "not-a-date", "title": "Bad", "score": 5},
+        {"url": "https://good.com", "pushed_at": "2026-04-10", "title": "Good", "score": 8},
+    ]
+    pruned = prune_history(history, days=90, today="2026-04-21")
+    urls = {e["url"] for e in pruned}
+    assert urls == {"https://good.com"}

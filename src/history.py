@@ -58,3 +58,22 @@ def record_pushed(history: list[dict], articles: list[dict], today: str) -> list
         for a in articles
     ]
     return list(history) + new_entries
+
+
+def prune_history(history: list[dict], days: int, today: str) -> list[dict]:
+    """Drop entries whose pushed_at is older than `days` days before `today`."""
+    today_dt = datetime.strptime(today, "%Y-%m-%d")
+    cutoff = today_dt - timedelta(days=days)
+
+    kept = []
+    for entry in history:
+        pushed_at = entry.get("pushed_at")
+        if not pushed_at:
+            continue
+        try:
+            pushed_dt = datetime.strptime(pushed_at, "%Y-%m-%d")
+        except ValueError:
+            continue
+        if pushed_dt >= cutoff:
+            kept.append(entry)
+    return kept
