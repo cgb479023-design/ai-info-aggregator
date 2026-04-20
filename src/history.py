@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime, timedelta
 
 
 def load_history(path: str) -> list[dict]:
@@ -11,3 +12,35 @@ def load_history(path: str) -> list[dict]:
         return data.get("pushed", [])
     except (json.JSONDecodeError, OSError):
         return []
+
+
+def filter_unseen(
+    articles: list[dict],
+    history: list[dict],
+    days: int,
+    today: str,
+) -> tuple[list[dict], list[dict]]:
+    """Return (unseen, skipped).
+
+    An article is 'skipped' if its URL appears in history with pushed_at within
+    the last `days` days relative to `today` (YYYY-MM-DD).
+    """
+    today_dt = datetime.strptime(today, "%Y-%m-%d")
+    cutoff = today_dt - timedelta(days=days)
+
+    recent_urls = set()
+    for entry in history:
+        url = entry.get("url")
+        pushed_at = entry.get("pushed_at")
+        if not url or not pushed_at:
+            continue
+        try:
+            pushed_dt = datetime.strptime(pushed_at, "%Y-%m-%d")
+        except ValueError:
+            continue
+        if pushed_dt >= cutoff:
+            recent_urls.add(url)
+
+    unseen = [a for a in articles if a.get("url") not in recent_urls]
+    skipped = [a for a in articles if a.get("url") in recent_urls]
+    return unseen, skipped
