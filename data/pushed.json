@@ -161,6 +161,144 @@
       "pushed_at": "2026-04-21",
       "title": "Fincept-Corporation/FinceptTerminal",
       "score": 6
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1srrk1r/i_had_719_visitors_and_almost_no_signups_then_i/",
+      "pushed_at": "2026-04-22",
+      "title": "I had 719 visitors and almost no signups. Then I changed 2 things and started waking up to new users every morning.",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1ss5j2x/moonshot_opensourced_flashkda_cutlass_kernels_for/",
+      "pushed_at": "2026-04-22",
+      "title": "Moonshot open-sourced FlashKDA, CUTLASS kernels for Kimi Delta Attention, up to 2.22x over the Triton baseline on H20",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1ss9pku/running_qwen3635ba3b_locally_for_coding_agent_my/",
+      "pushed_at": "2026-04-22",
+      "title": "Running Qwen3.6-35B-A3B Locally for Coding Agent: My Setup & Working Config",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1srvbke/i_tested_9_local_models_on_the_same_flight_sim/",
+      "pushed_at": "2026-04-22",
+      "title": "I tested 9 local models on the same flight sim prompt, all Q8, different Q providers, MLX",
+      "score": 8
+    },
+    {
+      "url": "https://github.com/zilliztech/claude-context",
+      "pushed_at": "2026-04-22",
+      "title": "zilliztech/claude-context",
+      "score": 8
+    },
+    {
+      "url": "https://github.com/microsoft/ai-agents-for-beginners",
+      "pushed_at": "2026-04-22",
+      "title": "microsoft/ai-agents-for-beginners",
+      "score": 8
+    },
+    {
+      "url": "https://github.com/sansan0/TrendRadar",
+      "pushed_at": "2026-04-22",
+      "title": "sansan0/TrendRadar",
+      "score": 8
+    },
+    {
+      "url": "https://www.technologyreview.com/2026/04/21/1135658/china-open-source-models-ai-artificial-intelligence/",
+      "pushed_at": "2026-04-22",
+      "title": "China’s open-source bet",
+      "score": 8
+    },
+    {
+      "url": "https://www.ifanr.com/1663150?utm_source=rss&utm_medium=rss&utm_campaign=",
+      "pushed_at": "2026-04-22",
+      "title": "把 DeepSeek、Kimi、智谱和 MiniMax 拉进群聊",
+      "score": 8
+    },
+    {
+      "url": "https://www.ifanr.com/1663106?utm_source=rss&utm_medium=rss&utm_campaign=",
+      "pushed_at": "2026-04-22",
+      "title": "等等，这些图是GPT-Image-2出的？！",
+      "score": 8
+    },
+    {
+      "url": "https://www.ifanr.com/1663008?utm_source=rss&utm_medium=rss&utm_campaign=",
+      "pushed_at": "2026-04-22",
+      "title": "我和 AI 搭子工作了一周，再也回不去了",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1ss6b1q/google_just_turned_chrome_into_an_ai_assistant/",
+      "pushed_at": "2026-04-22",
+      "title": "Google just turned Chrome into an AI Assistant (APAC rollout is live). Here’s a no-BS breakdown of what it actually does.",
+      "score": 7
+    },
+    {
+      "url": "https://www.reddit.com/r/Entrepreneur/comments/1srf18i/follow_up_to_my_pest_control_post_theres_22_open/",
+      "pushed_at": "2026-04-22",
+      "title": "Follow up to my pest control post : there's 22 open federal pest control contracts on sam.gov right now and most are reserved for small businesses",
+      "score": 7
+    },
+    {
+      "url": "https://www.bensbites.com/p/thats-my-designer-claude",
+      "pushed_at": "2026-04-22",
+      "title": "That's my designer - Claude",
+      "score": 7
+    },
+    {
+      "url": "https://simonwillison.net/2026/Apr/22/changes-to-github-copilot/#atom-everything",
+      "pushed_at": "2026-04-22",
+      "title": "Changes to GitHub Copilot Individual plans",
+      "score": 7
+    },
+    {
+      "url": "https://simonwillison.net/2026/Apr/21/gpt-image-2/#atom-everything",
+      "pushed_at": "2026-04-22",
+      "title": "Where's the raccoon with the ham radio? (ChatGPT Images 2.0)",
+      "score": 7
+    },
+    {
+      "url": "https://aideassistant.com/",
+      "pushed_at": "2026-04-22",
+      "title": "Show HN: Aide – A customizable Android assistant (voice, choose your provider)",
+      "score": 7
+    },
+    {
+      "url": "https://github.com/Screenata/open-chronicle",
+      "pushed_at": "2026-04-22",
+      "title": "Show HN: Open Chronicle – Local Screen Memory for Claude Code and Codex CLI",
+      "score": 7
+    },
+    {
+      "url": "https://www.openalmanac.org/",
+      "pushed_at": "2026-04-22",
+      "title": "Show HN: Almanac MCP, turn Claude Code into a Deep Research agent",
+      "score": 7
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1ss2lib/an_actual_example_of_if_you_dont_run_it_you_dont/",
+      "pushed_at": "2026-04-22",
+      "title": "An actual example of \"If you dont run it, you dont own it\" and Gemma 4 beats both Chat GPT and Gemini Chat",
+      "score": 7
+    },
+    {
+      "url": "https://github.com/HKUDS/RAG-Anything",
+      "pushed_at": "2026-04-22",
+      "title": "HKUDS/RAG-Anything",
+      "score": 7
+    },
+    {
+      "url": "https://www.technologyreview.com/2026/04/21/1135656/humanoid-data-robot-training-ai-artificial-intelligence/",
+      "pushed_at": "2026-04-22",
+      "title": "Humanoid data",
+      "score": 7
+    },
+    {
+      "url": "https://github.com/dayanch96/YTLite",
+      "pushed_at": "2026-04-22",
+      "title": "dayanch96/YTLite",
+      "score": 6
     }
   ]
 }
