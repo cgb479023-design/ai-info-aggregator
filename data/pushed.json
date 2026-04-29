@@ -1163,6 +1163,102 @@
       "pushed_at": "2026-04-28",
       "title": "donnemartin/system-design-primer",
       "score": 6
+    },
+    {
+      "url": "https://github.com/marras0914/cordon",
+      "pushed_at": "2026-04-29",
+      "title": "Show HN: Cordon – Security gateway for MCP tool calls with HITL approvals",
+      "score": 8
+    },
+    {
+      "url": "https://github.com/umbecanessa/neural-ledger-system",
+      "pushed_at": "2026-04-29",
+      "title": "Show HN: An agent that remembers across sessions (no chat history)",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1sxzqry/qwen_36_27b_bf16_vs_q4_k_m_vs_q8_0_gguf_evaluation/",
+      "pushed_at": "2026-04-29",
+      "title": "Qwen 3.6 27B BF16 vs Q4_K_M vs Q8_0 GGUF evaluation",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1sy7srk/qwen_3635ba3b_kv_cache_bench_f16_vs_q8_0_vs/",
+      "pushed_at": "2026-04-29",
+      "title": "Qwen 3.6-35B-A3B KV cache bench: f16 vs q8_0 vs turbo3 vs turbo4 from 0 to 1M context on M5 Max",
+      "score": 8
+    },
+    {
+      "url": "https://github.com/microsoft/VibeVoice",
+      "pushed_at": "2026-04-29",
+      "title": "microsoft/VibeVoice",
+      "score": 8
+    },
+    {
+      "url": "https://github.com/fspecii/ace-step-ui",
+      "pushed_at": "2026-04-29",
+      "title": "fspecii/ace-step-ui",
+      "score": 8
+    },
+    {
+      "url": "https://www.ifanr.com/1664039?utm_source=rss&utm_medium=rss&utm_campaign=",
+      "pushed_at": "2026-04-29",
+      "title": "OpenAI 和微软官宣「分手」，七年 CP 终成塑料",
+      "score": 8
+    },
+    {
+      "url": "https://www.ifanr.com/1664182?utm_source=rss&utm_medium=rss&utm_campaign=",
+      "pushed_at": "2026-04-29",
+      "title": "9秒删光公司数据库，我花最贵的钱，买了一个「删库跑路」的AI",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1symbuf/made_a_global_text_filler_finally_opensourced_it/",
+      "pushed_at": "2026-04-29",
+      "title": "Made a global text filler. Finally open-sourced it after a month of daily use.",
+      "score": 7
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1syj175/i_built_a_site_that_gives_confidently_wrong/",
+      "pushed_at": "2026-04-29",
+      "title": "I built a site that gives confidently wrong answers to any question",
+      "score": 7
+    },
+    {
+      "url": "https://www.latent.space/p/ainews-not-much-happened-today",
+      "pushed_at": "2026-04-29",
+      "title": "[AINews] not much happened today",
+      "score": 7
+    },
+    {
+      "url": "https://github.com/jftuga/mac-screen-search",
+      "pushed_at": "2026-04-29",
+      "title": "Show HN: mac-screen-search: CLI find, highlight, redact text on screen, in files",
+      "score": 7
+    },
+    {
+      "url": "https://github.com/hunvreus/pi-hosts",
+      "pushed_at": "2026-04-29",
+      "title": "Show HN: Pi-hosts – Give the Pi coding agent access to your servers",
+      "score": 7
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1sy0qj5/qwen3627b_iq4_xs_full_vram_with_110k_context/",
+      "pushed_at": "2026-04-29",
+      "title": "Qwen3.6-27B IQ4_XS FULL VRAM with 110k context",
+      "score": 7
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1sy54d1/lemonade_omnirouter_unifying_the_best_local_ai/",
+      "pushed_at": "2026-04-29",
+      "title": "Lemonade OmniRouter: unifying the best local AI engines for omni-modality",
+      "score": 7
+    },
+    {
+      "url": "https://github.com/iamgio/quarkdown",
+      "pushed_at": "2026-04-29",
+      "title": "iamgio/quarkdown",
+      "score": 7
     }
   ]
 }
