@@ -79,8 +79,31 @@ SUMMARY_PROMPT = """请为以下文章生成一段中文摘要，2-3 句话。
 只输出摘要文本，不要其他内容。"""
 
 
-SCORING_MODEL = "anthropic/claude-haiku-4-5"    # fast + cheap for bulk scoring
-SUMMARY_MODEL = "anthropic/claude-sonnet-4-5"  # better quality for final output
+SCORING_MODEL = "deepseek/deepseek-v4-flash"
+SUMMARY_MODEL = "deepseek/deepseek-v4-flash"
+
+# OpenRouter pricing for the model above ($/M tokens). Adjust if model changes.
+PRICE_IN_PER_M = 0.14
+PRICE_OUT_PER_M = 0.28
+
+USAGE = {"input": 0, "output": 0}
+
+
+def _track(response) -> None:
+    """Accumulate token usage from a chat completion response."""
+    if getattr(response, "usage", None):
+        USAGE["input"] += response.usage.prompt_tokens
+        USAGE["output"] += response.usage.completion_tokens
+
+
+def _reset_usage() -> None:
+    USAGE["input"] = 0
+    USAGE["output"] = 0
+
+
+def _print_usage_summary() -> None:
+    cost = USAGE["input"] / 1_000_000 * PRICE_IN_PER_M + USAGE["output"] / 1_000_000 * PRICE_OUT_PER_M
+    print(f"\n[USAGE] tokens in={USAGE['input']:,} out={USAGE['output']:,} | est. cost ${cost:.4f}")
 
 
 def score_article(article: dict, client: OpenAI) -> dict:
@@ -95,6 +118,7 @@ def score_article(article: dict, client: OpenAI) -> dict:
             max_tokens=256,
             messages=[{"role": "user", "content": prompt}],
         )
+        _track(response)
         raw = response.choices[0].message.content.strip()
         # Strip markdown code fences if present
         if raw.startswith("```"):
@@ -132,6 +156,7 @@ def summarize_article(article: dict, client: OpenAI) -> str:
             max_tokens=300,
             messages=[{"role": "user", "content": prompt}],
         )
+        _track(response)
         return response.choices[0].message.content.strip()
     except Exception as e:
         print(f"  [WARN] Summary failed for '{article['title']}': {e}")
@@ -171,6 +196,7 @@ def dedup_articles(articles: list[dict], client: OpenAI) -> tuple[list[dict], li
             max_tokens=256,
             messages=[{"role": "user", "content": prompt}],
         )
+        _track(response)
         raw = response.choices[0].message.content.strip()
         if raw.startswith("```"):
             raw = raw.split("```")[1]
@@ -195,6 +221,7 @@ def process_articles(articles: list[dict], api_key: str) -> tuple[list[dict], li
         api_key=api_key,
         base_url="https://openrouter.ai/api/v1",
     )
+    _reset_usage()
 
     print(f"\n[1/3] Scoring {len(articles)} articles...")
     scored = [score_article(a, client) for a in articles]
@@ -211,4 +238,5 @@ def process_articles(articles: list[dict], api_key: str) -> tuple[list[dict], li
     for article in kept:
         article["summary"] = summarize_article(article, client)
 
+    _print_usage_summary()
     return kept, rejected
