@@ -79,10 +79,11 @@ SUMMARY_PROMPT = """请为以下文章生成一段中文摘要，2-3 句话。
 只输出摘要文本，不要其他内容。"""
 
 
-SCORING_MODEL = "deepseek/deepseek-v4-flash"
-SUMMARY_MODEL = "deepseek/deepseek-v4-flash"
+SCORING_MODEL = "deepseek-v4-flash"
+SUMMARY_MODEL = "deepseek-v4-flash"
 
-# OpenRouter pricing for the model above ($/M tokens). Adjust if model changes.
+# DeepSeek official pricing for V4-Flash ($/M tokens), cache-miss list price.
+# Actual cost may be lower: cache hits 1/10 input, night discount (UTC 16:30-00:30) -50%.
 PRICE_IN_PER_M = 0.14
 PRICE_OUT_PER_M = 0.28
 
@@ -106,6 +107,42 @@ def _print_usage_summary() -> None:
     print(f"\n[USAGE] tokens in={USAGE['input']:,} out={USAGE['output']:,} | est. cost ${cost:.4f}")
 
 
+def _call_with_retry(client: OpenAI, model: str, prompt: str, max_tokens: int,
+                     json_mode: bool = False, attempts: int = 2):
+    """Call chat completion with retry on empty content or invalid JSON.
+    Returns parsed dict (json_mode=True) or stripped text (json_mode=False).
+    Raises the last exception if all attempts fail."""
+    last_err: Exception | None = None
+    for _ in range(attempts):
+        kwargs = {
+            "model": model,
+            "max_tokens": max_tokens,
+            "messages": [{"role": "user", "content": prompt}],
+        }
+        if json_mode:
+            kwargs["response_format"] = {"type": "json_object"}
+        response = client.chat.completions.create(**kwargs)
+        _track(response)
+        raw = (response.choices[0].message.content or "").strip()
+        if not raw:
+            last_err = ValueError("empty response content")
+            continue
+        if json_mode:
+            # Defensive: strip markdown fences if model still wraps despite json_mode
+            if raw.startswith("```"):
+                raw = raw.split("```")[1]
+                if raw.startswith("json"):
+                    raw = raw[4:]
+                raw = raw.strip()
+            try:
+                return json.loads(raw)
+            except json.JSONDecodeError as e:
+                last_err = e
+                continue
+        return raw
+    raise last_err  # type: ignore[misc]
+
+
 def score_article(article: dict, client: OpenAI) -> dict:
     """Score and classify an article. Returns article enriched with topic/score/tags/keep."""
     prompt = SCORE_PROMPT.format(
@@ -113,19 +150,7 @@ def score_article(article: dict, client: OpenAI) -> dict:
         content=article["content"],
     )
     try:
-        response = client.chat.completions.create(
-            model=SCORING_MODEL,
-            max_tokens=256,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        _track(response)
-        raw = response.choices[0].message.content.strip()
-        # Strip markdown code fences if present
-        if raw.startswith("```"):
-            raw = raw.split("```")[1]
-            if raw.startswith("json"):
-                raw = raw[4:]
-        result = json.loads(raw)
+        result = _call_with_retry(client, SCORING_MODEL, prompt, max_tokens=384, json_mode=True)
         topic = result.get("topic", "无关")
         score = int(result.get("score", 0))
         # GitHub Trending gets a lower pass threshold (6 instead of 7)
@@ -151,13 +176,7 @@ def summarize_article(article: dict, client: OpenAI) -> str:
         content=article["content"],
     )
     try:
-        response = client.chat.completions.create(
-            model=SUMMARY_MODEL,
-            max_tokens=300,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        _track(response)
-        return response.choices[0].message.content.strip()
+        return _call_with_retry(client, SUMMARY_MODEL, prompt, max_tokens=400, json_mode=False)
     except Exception as e:
         print(f"  [WARN] Summary failed for '{article['title']}': {e}")
         return ""
@@ -172,8 +191,9 @@ DEDUP_PROMPT = """以下是一批通过质量筛选的文章列表，格式为 [
 
 {articles}
 
-请输出需要删除的文章序号列表（JSON 数组），如果没有重复则返回空数组。
-只输出 JSON，例如：[2, 5, 8]"""
+请按以下 JSON 格式输出需要删除的文章序号，如果没有重复则 to_remove 为空数组：
+{"to_remove": [2, 5, 8]}
+只输出 JSON，不要其他文字。"""
 
 
 def dedup_articles(articles: list[dict], client: OpenAI) -> tuple[list[dict], list[dict]]:
@@ -191,18 +211,8 @@ def dedup_articles(articles: list[dict], client: OpenAI) -> tuple[list[dict], li
     prompt = DEDUP_PROMPT.format(articles=lines)
 
     try:
-        response = client.chat.completions.create(
-            model=SCORING_MODEL,
-            max_tokens=256,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        _track(response)
-        raw = response.choices[0].message.content.strip()
-        if raw.startswith("```"):
-            raw = raw.split("```")[1]
-            if raw.startswith("json"):
-                raw = raw[4:]
-        to_remove = set(json.loads(raw))
+        result = _call_with_retry(client, SCORING_MODEL, prompt, max_tokens=384, json_mode=True)
+        to_remove = set(result.get("to_remove", []))
     except Exception as e:
         print(f"  [WARN] Dedup failed: {e}, skipping dedup")
         return articles, []
@@ -219,7 +229,7 @@ def process_articles(articles: list[dict], api_key: str) -> tuple[list[dict], li
     """
     client = OpenAI(
         api_key=api_key,
-        base_url="https://openrouter.ai/api/v1",
+        base_url="https://api.deepseek.com",
     )
     _reset_usage()
 

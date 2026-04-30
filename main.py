@@ -19,9 +19,9 @@ DEDUP_WINDOW_DAYS = 90
 
 
 def main():
-    api_key = os.environ.get("OPENROUTER_API_KEY")
+    api_key = os.environ.get("DEEPSEEK_API_KEY")
     if not api_key:
-        print("Error: OPENROUTER_API_KEY environment variable not set.")
+        print("Error: DEEPSEEK_API_KEY environment variable not set.")
         sys.exit(1)
 
     lookback_days = int(os.environ.get("LOOKBACK_DAYS", "1"))
