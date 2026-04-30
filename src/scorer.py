@@ -1,4 +1,6 @@
 import json
+import os
+from collections import Counter
 from openai import OpenAI
 
 SCORE_PROMPT = """你是一个 AI 信息策展人。请分析以下文章，判断它是否值得推送给一个关注 AI 趋势和一人公司创业的读者。
@@ -107,6 +109,51 @@ def _print_usage_summary() -> None:
     print(f"\n[USAGE] tokens in={USAGE['input']:,} out={USAGE['output']:,} | est. cost ${cost:.4f}")
 
 
+# ============================================================
+# === EXPERIMENT (TEMPORARY): A/B compare V4-Flash vs Haiku ===
+# Delete this whole block + the dual-call lines in score_article
+# + the experiment summary block in process_articles when done.
+# ============================================================
+HAIKU_MODEL = "anthropic/claude-haiku-4-5"
+_OPENROUTER_CLIENT: "OpenAI | None" = None
+EXPERIMENT_STATS: dict = {
+    "v4_kept": 0, "haiku_kept": 0, "both_kept": 0,
+    "v4_killed_haiku_kept": 0, "v4_kept_haiku_killed": 0,
+    "haiku_failed": 0, "v4_scores": [], "haiku_scores": [],
+}
+
+
+def _score_with_haiku(prompt: str) -> "tuple[int, str] | None":
+    """One-off Haiku scoring via OpenRouter for A/B comparison.
+    Returns (score, topic) or None on failure. Does not affect keep decisions."""
+    if _OPENROUTER_CLIENT is None:
+        return None
+    for _ in range(2):
+        try:
+            resp = _OPENROUTER_CLIENT.chat.completions.create(
+                model=HAIKU_MODEL,
+                max_tokens=384,
+                messages=[{"role": "user", "content": prompt}],
+            )
+        except Exception:
+            return None
+        raw = (resp.choices[0].message.content or "").strip()
+        if raw.startswith("```"):
+            raw = raw.split("```")[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
+            raw = raw.strip()
+        if not raw:
+            continue
+        try:
+            result = json.loads(raw)
+            return int(result.get("score", 0)), result.get("topic", "无关")
+        except (json.JSONDecodeError, ValueError):
+            continue
+    return None
+# === END EXPERIMENT BLOCK ===
+
+
 def _call_with_retry(client: OpenAI, model: str, prompt: str, max_tokens: int,
                      json_mode: bool = False, attempts: int = 2):
     """Call chat completion with retry on empty content or invalid JSON.
@@ -163,6 +210,28 @@ def score_article(article: dict, client: OpenAI) -> dict:
             "tags": result.get("tags", []),
             "keep": keep,
         })
+        # === EXPERIMENT: dual-score with Haiku for comparison (no impact on keep) ===
+        if _OPENROUTER_CLIENT is not None:
+            haiku_result = _score_with_haiku(prompt)
+            if haiku_result is not None:
+                h_score, h_topic = haiku_result
+                EXPERIMENT_STATS["v4_scores"].append(score)
+                EXPERIMENT_STATS["haiku_scores"].append(h_score)
+                h_keep = h_score >= threshold and h_topic != "无关"
+                if keep:
+                    EXPERIMENT_STATS["v4_kept"] += 1
+                if h_keep:
+                    EXPERIMENT_STATS["haiku_kept"] += 1
+                if keep and h_keep:
+                    EXPERIMENT_STATS["both_kept"] += 1
+                if not keep and h_keep:
+                    EXPERIMENT_STATS["v4_killed_haiku_kept"] += 1
+                if keep and not h_keep:
+                    EXPERIMENT_STATS["v4_kept_haiku_killed"] += 1
+                print(f"  [CMP] v4={score:>2}/{topic[:8]:<10} haiku={h_score:>2}/{h_topic[:8]:<10} | {article['title'][:60]}")
+            else:
+                EXPERIMENT_STATS["haiku_failed"] += 1
+        # === END EXPERIMENT ===
     except Exception as e:
         print(f"  [WARN] Scoring failed for '{article['title']}': {e}")
         article.update({"topic": "无关", "score": 0, "tags": [], "keep": False})
@@ -233,6 +302,14 @@ def process_articles(articles: list[dict], api_key: str) -> tuple[list[dict], li
     )
     _reset_usage()
 
+    # === EXPERIMENT: enable A/B Haiku scoring if OpenRouter key available ===
+    global _OPENROUTER_CLIENT
+    or_key = os.environ.get("OPENROUTER_API_KEY")
+    if or_key:
+        _OPENROUTER_CLIENT = OpenAI(api_key=or_key, base_url="https://openrouter.ai/api/v1")
+        print("[EXPERIMENT] A/B comparison enabled: V4-Flash (primary) vs Haiku 4.5 (shadow)")
+    # === END EXPERIMENT ===
+
     print(f"\n[1/3] Scoring {len(articles)} articles...")
     scored = [score_article(a, client) for a in articles]
 
@@ -249,4 +326,27 @@ def process_articles(articles: list[dict], api_key: str) -> tuple[list[dict], li
         article["summary"] = summarize_article(article, client)
 
     _print_usage_summary()
+
+    # === EXPERIMENT: print A/B comparison summary ===
+    if _OPENROUTER_CLIENT is not None:
+        s = EXPERIMENT_STATS
+        n = len(s["v4_scores"])
+        if n:
+            v4_avg = sum(s["v4_scores"]) / n
+            h_avg = sum(s["haiku_scores"]) / n
+            v4_dist = sorted(Counter(s["v4_scores"]).items())
+            h_dist = sorted(Counter(s["haiku_scores"]).items())
+            print(f"\n[EXPERIMENT] A/B comparison ({n} articles where both succeeded)")
+            print(f"  V4-Flash kept:           {s['v4_kept']}")
+            print(f"  Haiku kept:              {s['haiku_kept']}")
+            print(f"  Both kept:               {s['both_kept']}")
+            print(f"  V4 killed, Haiku kept:   {s['v4_killed_haiku_kept']}  <- false rejects by V4")
+            print(f"  V4 kept, Haiku killed:   {s['v4_kept_haiku_killed']}  <- false accepts by V4")
+            print(f"  Avg score: V4={v4_avg:.2f} | Haiku={h_avg:.2f} | gap={v4_avg - h_avg:+.2f}")
+            print(f"  Score dist V4:    {v4_dist}")
+            print(f"  Score dist Haiku: {h_dist}")
+        if s['haiku_failed']:
+            print(f"  Haiku failed on:         {s['haiku_failed']} articles (excluded)")
+    # === END EXPERIMENT ===
+
     return kept, rejected

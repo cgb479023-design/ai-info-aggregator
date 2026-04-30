@@ -27,6 +27,7 @@ jobs:
       - name: Run aggregator
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}  # TEMP: A/B experiment with Haiku
           LOOKBACK_DAYS: "1"
         run: python main.py
 
