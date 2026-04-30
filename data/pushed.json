@@ -1481,6 +1481,18 @@
       "pushed_at": "2026-04-30",
       "title": "Firestorm Labs raises $82M to take drone factories into the field",
       "score": 7
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1sztjbp/i_built_a_5m_model_to_see_if_it_outperforms_my/",
+      "pushed_at": "2026-04-30",
+      "title": "I built a 5M model to see if it outperforms my 350M model...",
+      "score": 9
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1szrbub/qwenscope_official_sparse_autoencoders_saes_for/",
+      "pushed_at": "2026-04-30",
+      "title": "Qwen-Scope: Official Sparse Autoencoders (SAEs) for Qwen 3.5 models",
+      "score": 8
     }
   ]
 }
