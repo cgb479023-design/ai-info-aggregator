@@ -1493,6 +1493,156 @@
       "pushed_at": "2026-04-30",
       "title": "Qwen-Scope: Official Sparse Autoencoders (SAEs) for Qwen 3.5 models",
       "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1szvvcx/i_built_an_open_source_shared_context_board/",
+      "pushed_at": "2026-04-30",
+      "title": "I built an open source shared context board. Imagine Miro, Notion and Claude Code having a baby.",
+      "score": 6
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1t09sap/were_3_teenagers_building_a_palantir_alternative/",
+      "pushed_at": "2026-04-30",
+      "title": "We're 3 teenagers building a Palantir alternative for mid-market supply chains. Soft launching tonight",
+      "score": 6
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1t06142/i_reached_16_people_this_on_linkedin_and_4_got/",
+      "pushed_at": "2026-04-30",
+      "title": "I reached 16 people this on linkedin and 4 got converted",
+      "score": 5
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1t0a6qs/i_built_a_macos_menubar_app_that_shames_you_for/",
+      "pushed_at": "2026-04-30",
+      "title": "I built a macOS menubar app that shames you for having too many tabs - Tabshame",
+      "score": 6
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1t05u6c/i_built_an_open_source_youtube_outlier_finder/",
+      "pushed_at": "2026-04-30",
+      "title": "I built an open source Youtube outlier finder",
+      "score": 7
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1t096uu/i_built_an_opensource_system_that_lets_llms_play/",
+      "pushed_at": "2026-04-30",
+      "title": "I built an open-source system that lets LLMs play Pokemon Showdown using Python and free APIs",
+      "score": 7
+    },
+    {
+      "url": "https://simonwillison.net/2026/Apr/30/gpt-55-cyber-capabilities/#atom-everything",
+      "pushed_at": "2026-04-30",
+      "title": "Our evaluation of OpenAI's GPT-5.5 cyber capabilities",
+      "score": 5
+    },
+    {
+      "url": "https://www.appdevforall.org/",
+      "pushed_at": "2026-04-30",
+      "title": "Show HN: Code on the Go, an IDE for Android with On-Device Debugging (GPLv3)",
+      "score": 7
+    },
+    {
+      "url": "https://pu.dev/",
+      "pushed_at": "2026-04-30",
+      "title": "Show HN: Pu.sh – a full coding-agent harness in 400 lines of shell",
+      "score": 7
+    },
+    {
+      "url": "https://onerequest.app/",
+      "pushed_at": "2026-04-30",
+      "title": "Show HN: I built the missing layer between email and DocuSign",
+      "score": 6
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t038g7/amd_inhouse_ryzen_395_box_coming_in_june/",
+      "pushed_at": "2026-04-30",
+      "title": "AMD in-house ryzen 395 box coming in June",
+      "score": 5
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1szwi1d/deepseek_released_thinkingwithvisualprimitives/",
+      "pushed_at": "2026-04-30",
+      "title": "DeepSeek released 'Thinking-with-Visual-Primitives' framework",
+      "score": 6
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t07su1/followup_qwen3627b_on_1_rtx_3090_pushing_to_218k/",
+      "pushed_at": "2026-04-30",
+      "title": "Follow-up: Qwen3.6-27B on 1× RTX 3090 — pushing to ~218K context + ~50–66 TPS, tool calls now stable (PN12 fix)",
+      "score": 9
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1szv6z0/actual_comparison_between_locally_ran_qwen3627b/",
+      "pushed_at": "2026-04-30",
+      "title": "Actual comparison between locally ran Qwen-3.6-27B and proprietary models",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1szp96f/qwen3627bq6_k_images/",
+      "pushed_at": "2026-04-30",
+      "title": "Qwen3.6-27B-Q6_K - images",
+      "score": 6
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1szwjrp/psa_llamaswap_released_a_new_grouping_feature/",
+      "pushed_at": "2026-04-30",
+      "title": "PSA: llama-swap released a new grouping feature, matrix, allowing you to fine tune which models can run together",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t0bkaf/cuda_rocm_simultaneously_with_dggml_backend_dlon/",
+      "pushed_at": "2026-04-30",
+      "title": "Cuda + ROCm simultaneously with -DGGML_BACKEND_DL=ON !",
+      "score": 7
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t09anw/mistral_medium_35_128b_mlx_4bit_70_gb/",
+      "pushed_at": "2026-04-30",
+      "title": "Mistral medium 3.5 128B, MLX 4bit, ~70 GB",
+      "score": 6
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t07s6x/longcontext_coding_on_rtx_5080_16gb_qwen3635ba3b/",
+      "pushed_at": "2026-04-30",
+      "title": "Long-context coding on RTX 5080 16GB: Qwen3.6-35B-A3B holds 30 t/s at 128K (89 t/s fresh), no quality drop",
+      "score": 9
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t00fkh/terminal_bench_score_for_mistral_35_medium/",
+      "pushed_at": "2026-04-30",
+      "title": "Terminal Bench score for Mistral 3.5 Medium",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1szy8y8/my_calculator_is_a_transformer/",
+      "pushed_at": "2026-04-30",
+      "title": "My calculator is a transformer",
+      "score": 5
+    },
+    {
+      "url": "https://techcrunch.com/2026/04/30/anthropic-potential-900b-valuation-round-could-happen-within-two-weeks/",
+      "pushed_at": "2026-04-30",
+      "title": "Sources: Anthropic potential $900B+ valuation round could happen within 2 weeks",
+      "score": 7
+    },
+    {
+      "url": "https://www.technologyreview.com/2026/04/30/1136721/this-startups-new-mechanistic-interpretability-tool-lets-you-debug-llms/",
+      "pushed_at": "2026-04-30",
+      "title": "This startup’s new mechanistic interpretability tool lets you debug LLMs",
+      "score": 5
+    },
+    {
+      "url": "https://36kr.com/p/3789059666173189?f=rss",
+      "pushed_at": "2026-04-30",
+      "title": "氪星晚报｜澳门一季度GDP按年实质增长7.1%；小红书发内部信：加大AI投入，柯南出任总裁",
+      "score": 6
+    },
+    {
+      "url": "http://www.geekpark.net/news/363649",
+      "pushed_at": "2026-04-30",
+      "title": "对话奔驰高管：AI 上车之后，豪华品牌如何重新定义智能化？",
+      "score": 6
     }
   ]
 }
