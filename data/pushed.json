@@ -2075,6 +2075,150 @@
       "pushed_at": "2026-05-03",
       "title": "张雪机车夺得 WSBK 第三冠；传苹果正在酝酿一笔大型 AI 收购；创始人加入后，OpenAI 宣布开放 OpenClaw 直连｜极客早知道",
       "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t3vlrx/fastdms_64x_kvcache_compression_running_faster/",
+      "pushed_at": "2026-05-04",
+      "title": "FastDMS: 6.4X KV-cache compression running faster than vLLM BF16/FP8",
+      "score": 9
+    },
+    {
+      "url": "https://github.com/czlonkowski/n8n-mcp",
+      "pushed_at": "2026-05-04",
+      "title": "czlonkowski/n8n-mcp",
+      "score": 9
+    },
+    {
+      "url": "https://www.lennysnewsletter.com/p/the-internal-ai-tool-thats-transforming",
+      "pushed_at": "2026-05-04",
+      "title": "The internal AI tool that’s transforming how Stripe designs products | Owen Williams",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t3hokh/llmsearchindex_an_open_source_local_web_search/",
+      "pushed_at": "2026-05-04",
+      "title": "LLMSearchIndex- an Open Source Local Web Search Library with over 200 million indexed Web Pages for RAG applications",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t3eixr/deep_research_report_a_la_mckinsey_with_hermes/",
+      "pushed_at": "2026-05-04",
+      "title": "Deep research + report \"a la McKinsey\" with Hermes Agent and qwen3.6-35b-a3b Q6_K.",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t3u4r0/best_llama_config_for_turboquant_plus_stats_below/",
+      "pushed_at": "2026-05-04",
+      "title": "Best Llama Config for Turboquant_Plus? (Stats below)",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t3j126/m3_ultra_dgx_spark_m5_ultralite/",
+      "pushed_at": "2026-05-04",
+      "title": "M3 Ultra + DGX Spark = M5 Ultra-lite?",
+      "score": 8
+    },
+    {
+      "url": "https://github.com/Hmbown/DeepSeek-TUI",
+      "pushed_at": "2026-05-04",
+      "title": "Hmbown/DeepSeek-TUI",
+      "score": 8
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1t3snjc/i_built_the_memory_layer_i_wish_existed_when_my/",
+      "pushed_at": "2026-05-04",
+      "title": "I built the memory layer I wish existed when my AI agent kept asking the same questions",
+      "score": 7
+    },
+    {
+      "url": "https://byallo.com/",
+      "pushed_at": "2026-05-04",
+      "title": "Show HN: ByAllo – the online bookstore that runs itself",
+      "score": 7
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t3nh7d/the_first_ai_model_in_egypt/",
+      "pushed_at": "2026-05-04",
+      "title": "The first AI Model in Egypt 🇪🇬",
+      "score": 7
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t3guw3/live_demo_of_localvqe_tiny_1m_param_audio_model/",
+      "pushed_at": "2026-05-04",
+      "title": "Live demo of LocalVQE: Tiny ~1M param audio model that cancels echo and noise in realtime",
+      "score": 7
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t3lwji/comparison_of_the_development_status_of_various/",
+      "pushed_at": "2026-05-04",
+      "title": "Comparison of the development status of various claw/assistant projects",
+      "score": 7
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1t3j1xk/traditional_dev_tools_feel_outdated_after/",
+      "pushed_at": "2026-05-04",
+      "title": "Traditional dev tools feel outdated after switching to this AI stack",
+      "score": 6
+    },
+    {
+      "url": "https://www.therundown.ai/p/ai-shows-its-skills-in-the-emergency-room",
+      "pushed_at": "2026-05-04",
+      "title": "AI shows its skills in the emergency room",
+      "score": 6
+    },
+    {
+      "url": "https://github.com/fsilavong/agent-eval",
+      "pushed_at": "2026-05-04",
+      "title": "Show HN: Agent-evals – Claude skill to build your own evals",
+      "score": 6
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t3guzw/llamacpp_mtp_support_now_in_beta/",
+      "pushed_at": "2026-05-04",
+      "title": "Llama.cpp MTP support now in beta!",
+      "score": 6
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t3n6jo/apex_moe_quants_update_25_new_models_since_the/",
+      "pushed_at": "2026-05-04",
+      "title": "APEX MoE quants update: 25+ new models since the Qwen 3.5 post + new I-Nano tier",
+      "score": 6
+    },
+    {
+      "url": "https://techcrunch.com/2026/05/04/sierra-raises-950m-as-the-race-to-own-enterprise-ai-gets-serious/",
+      "pushed_at": "2026-05-04",
+      "title": "Sierra raises $950M as the race to own enterprise AI gets serious",
+      "score": 6
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1t3xxjr/i_built_a_job_tracker_saas_and_im_stuck_on/",
+      "pushed_at": "2026-05-04",
+      "title": "I built a job tracker SaaS and I’m stuck on getting users - need feedback on growth direction",
+      "score": 5
+    },
+    {
+      "url": "https://www.reddit.com/r/SideProject/comments/1t3bcuq/my_side_project_got_9_customers_in_one_day/",
+      "pushed_at": "2026-05-04",
+      "title": "My side project got 9 customers in one day",
+      "score": 5
+    },
+    {
+      "url": "https://github.com/haifengl/smile/tree/master/serve",
+      "pushed_at": "2026-05-04",
+      "title": "Show HN: Smile-Serve – Inference Server for ML, ONNX, and LLM",
+      "score": 5
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t3duwm/ryzen_ai_max_495_gorgon_halo_with_192gb_vram/",
+      "pushed_at": "2026-05-04",
+      "title": "Ryzen AI Max+ 495 (Gorgon Halo) with 192GB VRAM!",
+      "score": 5
+    },
+    {
+      "url": "https://techcrunch.com/2026/05/04/doordash-adds-ai-tools-to-speed-up-merchant-onboarding-edit-photos-of-dishes/",
+      "pushed_at": "2026-05-04",
+      "title": "DoorDash adds AI tools to speed up merchant onboarding, edit photos of dishes",
+      "score": 5
     }
   ]
 }
